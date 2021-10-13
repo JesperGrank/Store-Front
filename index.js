@@ -46,16 +46,47 @@ function createImg(item){
     return image
 }
 
+function onBuyButton(item) {
+    const button = document.createElement("button")
+    const id = item.id
+    button.innerHTML = "Buy"
+    button.value = id
+
+    button.addEventListener("click", function () {
+        transactions.push(item.price)
+        totalSpent.innerHTML = `Total: ${calculateTotalSpent()}`
+        shoppingCart.appendChild(createShoppingCartList(item))
+        console.log(button)
+    })
+    return button
+}
+
 function renderAllItems(item){
+
+    //const id = item.id
+    
     //console.log(item.images[0].src.small)
     const wrapper = document.createElement("div")
+    /*
+    const button = document.createElement("button")
+    button.innerHTML = "Buy"
+    button.value = id
     
+    button.addEventListener("click", function(){
+        transactions.push(item.price)
+        totalSpent.innerHTML = `Total: ${calculateTotalSpent()}`
+        shoppingCart.appendChild(createShoppingCartList(item))
+        console.log(button)
+    })
+    */
+
     wrapper.appendChild(createDescription(item))
     wrapper.appendChild(createImg(item))
     wrapper.appendChild(createPriceRatingStock(item))
+    wrapper.appendChild(onBuyButton(item))
 
     productContainer.appendChild(wrapper)
-    //console.log(item)
+    
 }
 
 
