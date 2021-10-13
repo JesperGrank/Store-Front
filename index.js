@@ -1,8 +1,15 @@
 const url = "https://mock-data-api.firebaseio.com/webb21/products.json"
 const productContainer = document.getElementById("productContainer")
+const shoppingCart = document.getElementById("shoppingCart")
 const totalSpent = document.getElementById("totalSpent")
 
 const transactions = []
+
+function createShoppingCartList(item){
+    const p = document.createElement("p")
+    p.innerHTML = `${item.name} - ${item.price}`
+    return p
+}
 
 function calculateTotalSpent(){
     let sum = 0
@@ -33,6 +40,7 @@ function createImg(item){
         transactions.push(item.price)
         console.log(transactions)
         totalSpent.innerHTML = `Total: ${calculateTotalSpent()}`
+        shoppingCart.appendChild(createShoppingCartList(item))
     })
 
     return image
@@ -41,7 +49,7 @@ function createImg(item){
 function renderAllItems(item){
     //console.log(item.images[0].src.small)
     const wrapper = document.createElement("div")
-
+    
     wrapper.appendChild(createDescription(item))
     wrapper.appendChild(createImg(item))
     wrapper.appendChild(createPriceRatingStock(item))
