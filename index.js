@@ -4,6 +4,15 @@ const shoppingCart = document.getElementById("shoppingCart")
 const totalSpent = document.getElementById("totalSpent")
 
 const transactions = []
+let startValue = 0
+const filterInput = document.getElementById("filterInput")
+const filterButton = document.getElementById("filterButton")
+
+filterButton.addEventListener("click", function(){
+    productContainer.innerHTML = ""
+    const userInput = filterInput.value
+    getStoreList(userInput)
+})
 
 function createShoppingCartList(item){
     const p = document.createElement("p")
@@ -35,6 +44,7 @@ function createImg(item){
     const image = document.createElement("img")
     image.src = item.images[0].src.small
     image.alt = item.images[0].alt
+    image.width = "250"
 
     image.addEventListener("click", function(){
         transactions.push(item.price)
@@ -61,47 +71,33 @@ function onBuyButton(item) {
     return button
 }
 
-function renderAllItems(item){
+function renderAllItems(item, userInput){
 
-    //const id = item.id
-    
-    //console.log(item.images[0].src.small)
     const wrapper = document.createElement("div")
-    /*
-    const button = document.createElement("button")
-    button.innerHTML = "Buy"
-    button.value = id
-    
-    button.addEventListener("click", function(){
-        transactions.push(item.price)
-        totalSpent.innerHTML = `Total: ${calculateTotalSpent()}`
-        shoppingCart.appendChild(createShoppingCartList(item))
-        console.log(button)
-    })
-    */
 
+    if(item.rating >= userInput){
     wrapper.appendChild(createDescription(item))
     wrapper.appendChild(createImg(item))
     wrapper.appendChild(createPriceRatingStock(item))
     wrapper.appendChild(onBuyButton(item))
 
     productContainer.appendChild(wrapper)
-    
+    }
 }
 
 
-function renderStoreItems(data){
+function renderStoreItems(data, userInput){
     data.forEach(function(item){
-        renderAllItems(item)
+        renderAllItems(item, userInput)
     })
 }
 
-function getStoreList(){
+function getStoreList(userInput){
     fetch(url)
     .then(respnse => respnse.json())
     .then(data => {
-        renderStoreItems(data)
+        renderStoreItems(data, userInput)
     })
 }
 
-getStoreList()
+getStoreList(startValue)
