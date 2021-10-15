@@ -4,7 +4,7 @@ const shoppingCart = document.getElementById("shoppingCart")
 const totalSpent = document.getElementById("totalSpent")
 
 const transactions = []
-let startValue = 0
+const startValue = 0 
 const filterInput = document.getElementById("filterInput")
 const filterButton = document.getElementById("filterButton")
 
@@ -72,7 +72,7 @@ function onBuyButton(item) {
 }
 
 function renderAllItems(item, userInput){
-
+    //console.log(item.rating)
     const wrapper = document.createElement("div")
 
     if(item.rating >= userInput){
