@@ -2,21 +2,15 @@
 <html lang="en">
 
 <head>
+    <meta charset="UTF-8">
     <title>Store front - Jesper Grankvist</title>
 </head>
 
 <body>
     <label for="filterInput">Filtrera efter rating</label>
-    <!-- <input id="filterInput" type="number" min="1" max="5"> -->
-    <select id="filterInput">
-        <option value="0">Visa alla produkter</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
+    <input id="filterInput" type="number" >
     <button id="filterButton">Filtrera!</button>
+    <p id="errorMessage" style="color: red;"></p>   
     <div id="root">
         <h2>Store front - Jesper Grankvist</h2>
         <h3 id="totalSpent">
