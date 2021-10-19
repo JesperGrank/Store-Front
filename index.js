@@ -22,7 +22,7 @@ filterButton.addEventListener("click", function () {
 
 function createShoppingCartList(item) {
     const p = document.createElement("p")
-    p.innerHTML = `${item.name} - ${item.price}`
+    p.innerHTML = `${item.name} - ${item.price} kr`
     return p
 }
 
@@ -42,7 +42,7 @@ function createPriceRatingStock(item) {
 
 function createDescription(item) {
     const description = document.createElement("h2")
-    description.innerText = `${item.name} --- ${item.description}`
+    description.innerText = `${item.name} - ${item.description}`
     return description
 }
 
@@ -50,44 +50,48 @@ function createImg(item) {
     const image = document.createElement("img")
     image.src = item.images[0].src.small
     image.alt = item.images[0].alt
-    image.width = "250"
+    image.width = "300"
+    image.height = "250"
 
     image.addEventListener("click", function () {
-        transactions.push(item.price)
-        totalSpent.innerHTML = `Total: ${calculateTotalSpent()}`
-        shoppingCart.appendChild(createShoppingCartList(item))
+        onBuyClick(item)
     })
     return image
 }
 
-function onBuyButton(item) {
+function createBuyButton(item) {
     const button = document.createElement("button")
     button.innerHTML = `Köp ${item.name}`
 
     button.addEventListener("click", function () {
-        transactions.push(item.price)
-        totalSpent.innerHTML = `Total: ${calculateTotalSpent()}`
-        shoppingCart.appendChild(createShoppingCartList(item))
+        onBuyClick(item)
     })
+
     return button
 }
 
+function createLineBreak() {
+    const lineBreak = document.createElement("hr")
+    return lineBreak
+}
+
+function onBuyClick(item) {
+    transactions.push(item.price)
+    totalSpent.innerHTML = `Total: ${calculateTotalSpent()}`
+    shoppingCart.appendChild(createShoppingCartList(item))
+}
 
 
 function renderAllItems(item, userInput) {
-
     const wrapper = document.createElement("div")
 
-    /*
-    item.rating >= userInput || !userInput || (!item.rating && userInput <= 1
-    */
-
-    if (!userInput || item.rating >= userInput ) {
+    if (item.rating >= userInput || !userInput) {
 
         wrapper.appendChild(createDescription(item))
         wrapper.appendChild(createImg(item))
         wrapper.appendChild(createPriceRatingStock(item))
-        wrapper.appendChild(onBuyButton(item))
+        wrapper.appendChild(createBuyButton(item))
+        wrapper.appendChild(createLineBreak())
 
         productContainer.appendChild(wrapper)
     }
